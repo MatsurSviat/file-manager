@@ -12,6 +12,8 @@ import mv from "./src/mv.js";
 import rm from "./src/rm.js";
 import osModule from "./src/os.js";
 import hash from "./src/hash.js";
+import compress from './src/compress.js'
+import decompress from './src/decompress.js'
 
 // // Get username from command line arguments
 const args = Object.entries(
@@ -83,6 +85,12 @@ readl.on("line", async (res) => {
       break;
     case "hash":
       promise = hash(...params);
+      break;
+      case "compress":
+      promise = compress(...params);
+      break;
+      case "decompress":
+      promise = decompress(...params);
       break;
     case "":
       console.log("\n");
