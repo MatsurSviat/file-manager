@@ -1,8 +1,8 @@
 import readline from "readline";
 import os from "os";
 
-import up from "./src/up.js";
-import cd from "./src/cd.js";
+import { up } from "./src/up.js";
+import { cd } from "./src/cd.js";
 import ls from "./src/ls.js";
 import cat from "./src/cat.js";
 import add from "./src/add.js";
@@ -49,64 +49,59 @@ readl.on("line", async (res) => {
   const [command, ...params] = res.split(" ");
   let promise;
   const error = "Invalid input";
+
   switch (command) {
     case "up":
       __dirname = up();
-      promise = new Promise((resolve) => resolve());
       break;
     case "cd":
       __dirname = cd(...params);
-      promise = new Promise((resolve) => resolve());
       break;
     case "ls":
       promise = ls();
       break;
     case "cat":
       promise = cat(...params);
-      promise = new Promise((resolve) => resolve());
       break;
     case "add":
       promise = add(...params);
-      promise = new Promise((resolve) => resolve());
+      break;
     case "rn":
       promise = rn(...params);
-      promise = new Promise((resolve) => resolve());
+      break;
     case "cp":
       promise = cp(...params);
-      promise = new Promise((resolve) => resolve());
+      break;
     case "mv":
       promise = mv(...params);
-      promise = new Promise((resolve) => resolve());
+      break;
     case "rm":
       promise = rm(...params);
-      promise = new Promise((resolve) => resolve());
       break;
     case "os":
       promise = osModule(...params);
-      promise = new Promise((resolve) => resolve());
       break;
     case "hash":
       promise = hash(...params);
-      promise = new Promise((resolve) => resolve());
       break;
     case "":
       console.log("\n");
-      promise = new Promise((resolve) => resolve());
       break;
-
     case ".exit":
       readl.close();
+      break;
     default:
       console.log(error);
-      promise = new Promise((resolve) => resolve());
   }
 
-  promise.then((result) => {
-    console.log(`You are currently in ${__dirname}`);
-  });
+  if (promise) {
+    await promise;
+  }
+
+  console.log(`You are currently in ${__dirname}`);
 });
 
 //close file manager
 readl.on("close", () => {
-  console.log(`Thank you for using File Manager, ${username}!`);
+  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
 });

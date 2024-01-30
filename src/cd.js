@@ -1,7 +1,7 @@
 import path from "path";
 import { __dirname } from "../index.js";
 
-function cd(...params) {
+export const cd =(...params) => {
   try {
     let newDirname = path.resolve(__dirname, ...params);
     return newDirname;
@@ -9,5 +9,3 @@ function cd(...params) {
     console.error("Operation failed");
   }
 }
-
-export default cd;

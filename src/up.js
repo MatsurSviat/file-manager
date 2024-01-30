@@ -1,13 +1,11 @@
 import path from "path";
 import { __dirname } from "../index.js";
 
-function up() {
+export const up = () => {
   try {
-    let newDirname = path.parse(__dirname).dir;
-    return newDirname;
+    let oneStepBack=path.join(__dirname,'../');
+    return oneStepBack
   } catch (error) {
     console.error("Operation failed");
   }
 }
-
-export default up;
